@@ -4,6 +4,7 @@
 # \================================/ #
 from labjack import ljm
 import numpy as np
+import time
 
 
 #/----------------\#
@@ -172,11 +173,23 @@ METHODS:
 
 '''
 
-class pinOut:           
-    def __init__ (self,handle,pinName):
+class sensor:           
+    def __init__ (self,handle,dataPin,differential):
         self.handle = handle
-        self.name = pinName
-        self.address,self.type = ljm.nameToAddress(pinName)
+        self.address,self.type = ljm.nameToAddress(dataPin)
+        
+        if(len(dataPin)==5): # If the specified pin has 5 characters, it has a double digit index
+            pinNumber = int(dataPin[3] + dataPin[4])
+        else:
+            pinNumber = int(dataPin[3])
+
+        diffString = dataPin + "_NEGATIVE_CH"
+        if(differential):
+            ljm.eWriteName(handle, diffString, pinNumber + 1) # Sets relative pin to the pin adjacent to it
+        else:
+            ljm.eWriteName(handle, "AIN0_NEGATIVE_CH", "AIN_COM") # Set relative pin to ground if non-differential measurement
+
+        
         self.data = []
 
     def takeData(self):
@@ -188,7 +201,7 @@ class pinOut:
         self.data = []
         return
     
-    def savetoCSV(self,file):
+    def savetoCSV(self,fileName):
         DatatoSave = np.array(self.data)
-        np.savetxt(file,DatatoSave,delimiter=",",fmt='%f')
+        np.savetxt("/tests/" + fileName + '-' + time.asctime,DatatoSave,delimiter=",",fmt='%f')
         return
