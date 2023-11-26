@@ -193,7 +193,7 @@ class sensor:
         self.data = []
 
     def takeData(self):
-        value = ljm.eReadAddress(self.handle, self.address)
+        value = ljm.eReadAddress(self.handle, self.address, 3) #The number at the end corresponds to the datatype, 3 represents LJM_FLOAT32 which I believe is a 32 bit floating point number
         self.data.append(value)
         return
 
