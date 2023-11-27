@@ -90,7 +90,7 @@ P1in = "AIN10"
 
     #--Define SENSORS--#
 
-# P1 = pinOut(handle,P1in)
+P1 = pinOut(handle,P1in)
 
 #=====================#
     # THE RUN LOOP #
