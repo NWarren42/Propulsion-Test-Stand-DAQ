@@ -8,28 +8,12 @@ from QDAC_Class import *
 
 handle = ljm.openS("T7","ANY","ANY")
 
-
-# testSensor = sensor(handle, "AIN0", 0)
-
-# testSensor.takeData
-
-# print(testSensor.data)
-
-
-#Websocket connection code
-
-
-
+#Websocket connection code that hasn't worked
 # def sendData():
 #      with connect("ws://localhost:3000/") as websocket:
 #           websocket.send(testLoadCell.data[-1])
 #           message = websocket.recv()
 #           print("Recieved: ", message)
-
-
-
-
-
 
 
 
@@ -42,8 +26,7 @@ def acquireDataTimed(duration, interval): #duration is overall duration of measu
 
         while time.time() < endTime:
             testLoadCell.takeData()
-            # print(testLoadCell.data[-1])
-            # sendData()
+            print(testLoadCell.data[-1])
             time.sleep(interval)
             return testLoadCell.data[-1]
 
@@ -52,7 +35,6 @@ def acquireDataIndefinite(interval):
           while(True):
             testLoadCell.takeData()
             print(testLoadCell.data[-1])
-            # sendData()
             time.sleep(interval)
     except KeyboardInterrupt:
         print("Data acquisition was manually halted")
@@ -65,17 +47,18 @@ def printAllLoadTestData():
 
 testLoadCell.wipeData()
 
-async def communicateWithServer():
-     url = "wss://api.golioth.io/v1/ws/"
+# More websocket code that does not fully work (not sure why)
+# async def communicateWithServer():
+#      url = "wss://api.golioth.io/v1/ws/"
 
-     async with websockets.connect(url) as ws:
+#      async with websockets.connect(url) as ws:
                   
-        await ws.send(acquireDataTimed(10, 0.01))
-        while True:
-            recvText = await ws.recv()
-            print("> {}".format(recvText))
+#         await ws.send(acquireDataTimed(10, 0.01))
+#         while True:
+#             recvText = await ws.recv()
+#             print("> {}".format(recvText))
 
 
-asyncio.get_event_loop().run_until_complete(communicateWithServer())
+# asyncio.get_event_loop().run_until_complete(communicateWithServer())
 
 acquireDataTimed(10, 0.01) #arbitrary time values
