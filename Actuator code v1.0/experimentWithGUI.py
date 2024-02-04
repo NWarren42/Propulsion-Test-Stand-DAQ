@@ -15,6 +15,9 @@
 
 
 from matplotlib import pyplot as plt
+from matplotlib.animation import FuncAnimation
+import time
+import random
 
 # print(plt.syle.available)
 plt.style.use('fivethirtyeight')
@@ -41,3 +44,25 @@ plt.grid(True)
 plt.tight_layout()
 
 plt.show()
+
+# time_vals = []
+# y_vals = []
+
+# startTime = time.time()
+
+# def getTimeElapsed():
+#     elapsed = time.time() - startTime
+#     return elapsed
+
+
+# def animate(i):
+#     time_vals.append(getTimeElapsed())
+#     y_vals.append(random.randint(0,10))
+
+#     plt.cla()
+#     plt.plot(time_vals, y_vals)
+
+# ani = FuncAnimation(plt.gcf(), animate, interval = 1000)
+
+# plt.tigh_layout()
+# plt.show()
