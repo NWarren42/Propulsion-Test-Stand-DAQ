@@ -1,5 +1,6 @@
 from labjack import ljm
 import numpy as np
+import msvcrt
 from QDAC_Class import *
 import time
 

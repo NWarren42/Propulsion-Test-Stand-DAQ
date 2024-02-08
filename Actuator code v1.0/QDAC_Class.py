@@ -52,6 +52,6 @@ class loadCell:
         # Creating data storage array
         self.data = []
 
-        def takeData (self):
-            self.data.append(ljm.eReadAddress())
+    def takeData (self):
+            self.data.append(ljm.eReadAddress(self.handle, self.highAddress))
 
