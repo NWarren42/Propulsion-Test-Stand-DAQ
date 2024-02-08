@@ -1,13 +1,20 @@
 from labjack import ljm
 import numpy as np
-import msvcrt
 from QDAC_Class import *
+import time
 
 handle = ljm.openS("T7","ANY","ANY")
 
 
-testSensor = sensor(handle, "AIN0", 0)
+testSensor = thermocouple(handle, "AIN0")
 
-testSensor.takeData
+#print(ljm.eReadName(handle, testSensor.tempOutputRegister))
 
-print(testSensor.data)
+
+
+for i in range(0, 1000): 
+    time.sleep(0.1)
+    testSensor.takeData()
+    print(testSensor.data[i])
+
+
